@@ -1,10 +1,12 @@
-package com.github.nuclearfog.nitterify;
+package org.nuclearfog.nitterify.adapter;
 
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import org.nuclearfog.nitterify.R;
 
 /**
  * Dropdown adapter used to show network options

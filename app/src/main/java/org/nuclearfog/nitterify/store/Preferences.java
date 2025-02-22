@@ -1,22 +1,22 @@
-package com.github.nuclearfog.nitterify;
+package org.nuclearfog.nitterify.store;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
 /**
- * App settings class storing nitter selection
+ * App settings class storing Nitter selection
  *
  * @author nuclearfog
  */
-public class AppSettings {
+public class Preferences {
 
 	/**
-	 * mode to use default nitter instance
+	 * mode to use default Nitter instance
 	 */
 	public static final int MODE_DEFAULT = 10;
 
 	/**
-	 * mode to use custom nitter instance
+	 * mode to use custom Nitter instance
 	 */
 	public static final int MODE_CUSTOM = 11;
 
@@ -25,7 +25,7 @@ public class AppSettings {
 	private static final String SETTINGS_MODE = "mode";
 	private static final String DOMAIN_DEF_VALUE = "https://nitter.net";
 
-	private static AppSettings instance;
+	private static Preferences instance;
 
 	private SharedPreferences settings;
 
@@ -35,7 +35,7 @@ public class AppSettings {
 	/**
 	 *
 	 */
-	private AppSettings(Context context) {
+	private Preferences(Context context) {
 		settings = context.getSharedPreferences(SETTINGS_NAME, Context.MODE_PRIVATE);
 		domain = settings.getString(SETTINGS_DOMAIN, DOMAIN_DEF_VALUE);
 		mode = settings.getInt(SETTINGS_MODE, MODE_DEFAULT);
@@ -85,9 +85,9 @@ public class AppSettings {
 	 *
 	 * @return instance of this class
 	 */
-	public static AppSettings get(Context context) {
+	public static Preferences get(Context context) {
 		if (instance == null) {
-			instance = new AppSettings(context);
+			instance = new Preferences(context);
 		}
 		return instance;
 	}

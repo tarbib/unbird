@@ -1,4 +1,4 @@
-package com.github.nuclearfog.nitterify;
+package org.nuclearfog.nitterify.activities;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Toast;
+
+import org.nuclearfog.nitterify.store.Preferences;
+import org.nuclearfog.nitterify.R;
 
 /**
  * Activity used to redirect to nitter instance
@@ -18,12 +21,12 @@ public class RedirectActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		AppSettings settings = AppSettings.get(getApplicationContext());
+		Preferences settings = Preferences.get(getApplicationContext());
 		// fetch url to redirect
 		if (getIntent().getData() != null) {
 			Uri redirectUrl;
 			String path = getIntent().getData().getPath();
-			if (settings.getMode() == AppSettings.MODE_CUSTOM) {
+			if (settings.getMode() == Preferences.MODE_CUSTOM) {
 				redirectUrl = Uri.parse(settings.getDomain() + path);
 				if (redirectUrl.getScheme() == null)   {
 					redirectUrl = Uri.parse("https://" + settings.getDomain() + path);
