@@ -1,12 +1,17 @@
 package org.nuclearfog.nitterify.activities;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Patterns;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -34,6 +39,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 		setContentView(R.layout.layout_main);
 		Spinner selector = findViewById(R.id.network_selector);
 		View confirmButton = findViewById(R.id.network_confirm);
+		Button settingsButton = findViewById(R.id.open_app_settings);
 		urlContainer = findViewById(R.id.network_input_container);
 		urlInput = findViewById(R.id.network_input);
 
@@ -49,13 +55,17 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 			urlContainer.setVisibility(View.VISIBLE);
 			urlInput.setText(settings.getDomain());
 		}
-
+		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+			settingsButton.setVisibility(View.VISIBLE);
+		}
 		selector.setOnItemSelectedListener(this);
+		settingsButton.setOnClickListener(this);
 		confirmButton.setOnClickListener(this);
 	}
 
 
 	@Override
+	@SuppressLint("InlinedApi")
 	public void onClick(View v) {
 		if (v.getId() == R.id.network_confirm) {
 			String url = urlInput.getText().toString();
@@ -67,6 +77,11 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 			} else {
 				urlInput.setError(getString(R.string.error_wrong_url));
 			}
+		} else if (v.getId() == R.id.open_app_settings) {
+			Intent intent = new Intent(Settings.ACTION_APP_OPEN_BY_DEFAULT_SETTINGS, Uri.parse("package:" + getPackageName()));
+			intent.addCategory(Intent.CATEGORY_DEFAULT);
+			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(intent);
 		}
 	}
 

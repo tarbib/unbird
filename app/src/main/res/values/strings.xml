@@ -11,4 +11,5 @@
 	<string name="select_nitter" translatable="false">Nitter</string>
 	<!-- instance for nitter.net -->
 	<string name="custom_instance">custom instance</string>
+	<string name="open_app_settings">set permission to open links</string>
 </resources>
