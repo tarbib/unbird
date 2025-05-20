@@ -3,15 +3,15 @@ plugins {
 }
 
 android {
-	compileSdk 35
+	compileSdk 36
 	namespace 'org.nuclearfog.nitterify'
 
 	defaultConfig {
 		applicationId "org.nuclearfog.nitterify"
 		minSdkVersion 11
-		targetSdkVersion 35
+		targetSdkVersion 36
 		versionCode 5
-		versionName "2.1.1"
+		versionName "2.1.2"
 		resConfigs 'en', 'de'
 	}
 
