@@ -7,11 +7,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import org.nuclearfog.nitterify.store.Preferences;
 import org.nuclearfog.nitterify.R;
+import org.nuclearfog.nitterify.store.Preferences;
 
 /**
- * Activity used to redirect to nitter instance
+ * Activity used to redirect to Nitter instance
  *
  * @author nuclearfog
  */
@@ -28,7 +28,7 @@ public class RedirectActivity extends Activity {
 			String path = getIntent().getData().getPath();
 			if (settings.getMode() == Preferences.MODE_CUSTOM) {
 				redirectUrl = Uri.parse(settings.getDomain() + path);
-				if (redirectUrl.getScheme() == null)   {
+				if (redirectUrl.getScheme() == null) {
 					redirectUrl = Uri.parse("https://" + settings.getDomain() + path);
 				}
 			} else {
@@ -43,6 +43,12 @@ public class RedirectActivity extends Activity {
 				Toast.makeText(getApplicationContext(), R.string.error_open_link, Toast.LENGTH_SHORT).show();
 			}
 		}
+	}
+
+
+	@Override
+	protected void onStop() {
+		super.onStop();
 		finish();
 	}
 }

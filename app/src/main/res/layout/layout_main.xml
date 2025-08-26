@@ -37,7 +37,7 @@
 			android:lines="1"
 			android:textSize="@dimen/text_size_input"
 			tools:ignore="LabelFor"
-			android:hint="@string/hint_url"/>
+			android:hint="@string/hint_url" />
 
 		<ImageButton
 			android:id="@+id/network_confirm"

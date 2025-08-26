@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
 	<style name="DefaultTheme" parent="@android:style/Theme.Holo">
 		<item name="android:background">@color/main_background</item>
 		<item name="android:windowActionBar">false</item>

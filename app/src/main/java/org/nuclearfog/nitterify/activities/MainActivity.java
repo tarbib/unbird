@@ -16,9 +16,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import org.nuclearfog.nitterify.store.Preferences;
-import org.nuclearfog.nitterify.adapter.NetworkAdapter;
 import org.nuclearfog.nitterify.R;
+import org.nuclearfog.nitterify.adapter.NetworkAdapter;
+import org.nuclearfog.nitterify.store.Preferences;
 
 /**
  * Main activity of this application, used to show network selector and handle link conversion
