@@ -8,7 +8,7 @@
 	<string name="description_button">save instance url</string>
 	<string name="info_instance_set">instance url saved</string>
 	<!-- instance for nitter.net -->
-	<string name="select_nitter" translatable="false">Nitter</string>
+	<string name="select_nitter" translatable="false">nitter.net</string>
 	<!-- instance for nitter.net -->
 	<string name="custom_instance">custom instance</string>
 	<string name="open_app_settings">set permission to open links</string>
