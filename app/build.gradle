@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-	compileSdk 36
+	compileSdkVersion 36
 	namespace 'org.nuclearfog.nitterify'
 
 	defaultConfig {
@@ -24,6 +24,23 @@ android {
 			vcsInfo.include false
 			proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 		}
+	}
+
+	dependenciesInfo {
+		includeInApk = false
+		includeInBundle = false
+	}
+
+	tasks.configureEach { task ->
+		if (task.name.contains("ArtProfile")) {
+			task.enabled = false
+		}
+	}
+
+	packagingOptions {
+		exclude '/META-INF/CHANGES'
+		exclude '/META-INF/DEPENDENCIES'
+		exclude '/META-INF/README.md'
 	}
 }
 
