@@ -10,8 +10,8 @@ android {
 		applicationId "org.nuclearfog.nitterify"
 		minSdkVersion 11
 		targetSdkVersion 36
-		versionCode 7
-		versionName "2.1.4"
+		versionCode 8
+		versionName "2.1.5"
 		resConfigs 'en', 'de'
 	}
 

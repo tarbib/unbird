@@ -1,1 +1,1 @@
-open Twitter links in Nitter
+redirect X/Twitter links to Nitter

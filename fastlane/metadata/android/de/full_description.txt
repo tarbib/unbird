@@ -1,0 +1,1 @@
+<p><i>Nitterify</i> leitet X/Twitter Links zu einer beliebigen Nitter-Instanz um. Keine zusätzlichen Berechtigungen sind notwendig!</p>

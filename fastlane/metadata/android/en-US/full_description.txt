@@ -1,1 +1,1 @@
-<p><i>Nitterify</i> simply converts Twitter links to Nitter links. No permission is required! When opening a link in Android (e.g. "twitter.com/username") the app converts this link to "nitter.net/username" and forwards it to a browser.</p>
+<p><i>Nitterify</i> simply forwards X/Twitter links to a Nitter instance. No additional permission is required!</p>
