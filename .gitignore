@@ -4,3 +4,7 @@ app/release/
 .idea/
 build/
 local.properties
+# signing keys must never be committed
+*.jks
+*.keystore
+SIGNING_*.txt

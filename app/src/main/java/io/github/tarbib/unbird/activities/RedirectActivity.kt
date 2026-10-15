@@ -1,4 +1,4 @@
-package org.nuclearfog.nitterify.activities
+package io.github.tarbib.unbird.activities
 
 import android.app.Activity
 import android.content.ActivityNotFoundException
@@ -6,8 +6,8 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
-import org.nuclearfog.nitterify.R
-import org.nuclearfog.nitterify.store.Preferences
+import io.github.tarbib.unbird.R
+import io.github.tarbib.unbird.store.Preferences
 
 /**
  * Activity used to redirect to Nitter instance

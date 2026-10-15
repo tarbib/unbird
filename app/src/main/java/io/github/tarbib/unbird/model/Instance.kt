@@ -1,4 +1,4 @@
-package org.nuclearfog.nitterify.model
+package io.github.tarbib.unbird.model
 
 import org.json.JSONObject
 

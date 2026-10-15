@@ -1,4 +1,4 @@
-package org.nuclearfog.nitterify.activities
+package io.github.tarbib.unbird.activities
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -19,11 +19,11 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
 import android.widget.Toast
-import org.nuclearfog.nitterify.R
-import org.nuclearfog.nitterify.adapter.NetworkAdapter
-import org.nuclearfog.nitterify.backend.InstanceLoader
-import org.nuclearfog.nitterify.model.Instance
-import org.nuclearfog.nitterify.store.Preferences
+import io.github.tarbib.unbird.R
+import io.github.tarbib.unbird.adapter.NetworkAdapter
+import io.github.tarbib.unbird.backend.InstanceLoader
+import io.github.tarbib.unbird.model.Instance
+import io.github.tarbib.unbird.store.Preferences
 
 /**
  * Main activity of this application, used to show network selector and handle link conversion

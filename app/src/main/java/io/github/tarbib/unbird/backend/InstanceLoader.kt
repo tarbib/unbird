@@ -1,11 +1,11 @@
-package org.nuclearfog.nitterify.backend
+package io.github.tarbib.unbird.backend
 
 import android.os.Handler
 import android.os.Looper
 import android.os.SystemClock
+import io.github.tarbib.unbird.model.Instance
 import org.json.JSONException
 import org.json.JSONObject
-import org.nuclearfog.nitterify.model.Instance
 import java.io.IOException
 import java.net.HttpURLConnection
 import java.net.URL
@@ -54,7 +54,7 @@ class InstanceLoader(private var callback: InstanceCallback?) : Thread() {
 			connection.connectTimeout = TIMEOUT
 			connection.readTimeout = TIMEOUT
 			// replace the default user agent which contains device model and Android version
-			connection.setRequestProperty("User-Agent", "Nitterify")
+			connection.setRequestProperty("User-Agent", "Unbird")
 			connection.setRequestProperty("Accept", "application/json")
 			val responseCode = connection.responseCode
 			if (responseCode != HttpURLConnection.HTTP_OK) {

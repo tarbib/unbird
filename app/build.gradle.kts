@@ -6,14 +6,14 @@ android {
 	compileSdk = 37
 	compileSdkMinor = 0
 	buildToolsVersion = "37.0.0"
-	namespace = "org.nuclearfog.nitterify"
+	namespace = "io.github.tarbib.unbird"
 
 	defaultConfig {
 		minSdk = 11
 		targetSdk = 37
-		versionCode = 8
-		versionName = "2.1.5"
-		applicationId = "org.nuclearfog.nitterify"
+		versionCode = 1
+		versionName = "1.0.0"
+		applicationId = "io.github.tarbib.unbird"
 	}
 
 	androidResources {

@@ -1,4 +1,4 @@
-package org.nuclearfog.nitterify.store
+package io.github.tarbib.unbird.store
 
 import android.content.Context
 import android.content.SharedPreferences
