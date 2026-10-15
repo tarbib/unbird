@@ -20,6 +20,19 @@ android {
 		localeFilters += setOf("en", "de")
 	}
 
+	signingConfigs {
+		// the release key is provided by CI, local release builds stay unsigned
+		val keystore = providers.environmentVariable("SIGNING_KEYSTORE").orNull
+		if (keystore != null) {
+			create("release") {
+				storeFile = file(keystore)
+				storePassword = providers.environmentVariable("SIGNING_PASSWORD").get()
+				keyAlias = "unbird"
+				keyPassword = providers.environmentVariable("SIGNING_PASSWORD").get()
+			}
+		}
+	}
+
 	buildTypes {
 		release {
 			isMinifyEnabled = true
@@ -27,6 +40,7 @@ android {
 			isDebuggable = false
 			multiDexEnabled = false
 			vcsInfo.include = false
+			signingConfig = signingConfigs.findByName("release")
 			proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
 		}
 	}

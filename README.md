@@ -9,6 +9,15 @@ Lightweight: the only permission is internet access, used just to load the list 
 
 The latest APK is attached to the newest [release](https://github.com/tarbib/unbird/releases/latest).
 
+## Build
+
+```sh
+./gradlew assembleRelease
+```
+
+Release builds are signed when the `SIGNING_KEYSTORE` (path to the keystore, key alias `unbird`) and `SIGNING_PASSWORD` environment variables are set.
+GitHub Actions builds every push and publishes a release for every `v*` tag, using the `SIGNING_KEYSTORE_BASE64` and `SIGNING_PASSWORD` repository secrets.
+
 ## Credits
 
 Unbird is a modified version of [Nitterify](https://codeberg.org/nuclearfog/Nittterify) by nuclearfog.
