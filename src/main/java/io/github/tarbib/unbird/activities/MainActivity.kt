@@ -1,19 +1,20 @@
 package io.github.tarbib.unbird.activities
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import android.text.InputType
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.RelativeSizeSpan
+import android.util.Patterns
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import io.github.tarbib.unbird.R
@@ -26,14 +27,13 @@ import io.github.tarbib.unbird.store.Preferences
  *
  * @author nuclearfog
  */
-class MainActivity : Activity(), View.OnClickListener, DialogInterface.OnClickListener, InstanceLoader.InstanceCallback {
+class MainActivity : Activity() {
 
 	private lateinit var preferences: Preferences
 	private lateinit var instanceText: TextView
 	private lateinit var instanceButton: Button
 	private var instanceLoader: InstanceLoader? = null
 	private var instanceDialog: AlertDialog? = null
-	private var instances: List<Instance> = emptyList()
 
 
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,12 +45,17 @@ class MainActivity : Activity(), View.OnClickListener, DialogInterface.OnClickLi
 
 		preferences = Preferences(this)
 		instanceText.text = preferences.instance
+		instanceButton.setOnClickListener {
+			instanceButton.isEnabled = false
+			instanceLoader = InstanceLoader { showInstances(it) }.also { it.start() }
+		}
 		// since Android 12 opening X/Twitter links with this app must be allowed manually
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
 			settingsButton.visibility = View.VISIBLE
+			settingsButton.setOnClickListener {
+				startActivity(Intent(Settings.ACTION_APP_OPEN_BY_DEFAULT_SETTINGS, Uri.parse("package:$packageName")))
+			}
 		}
-		instanceButton.setOnClickListener(this)
-		settingsButton.setOnClickListener(this)
 	}
 
 
@@ -60,41 +65,77 @@ class MainActivity : Activity(), View.OnClickListener, DialogInterface.OnClickLi
 		instanceDialog?.dismiss()
 	}
 
-
-	@SuppressLint("InlinedApi")
-	override fun onClick(v: View) {
-		if (v.id == R.id.choose_instance) {
-			instanceButton.isEnabled = false
-			instanceLoader = InstanceLoader(this).also { it.start() }
-		} else if (v.id == R.id.open_app_settings) {
-			startActivity(Intent(Settings.ACTION_APP_OPEN_BY_DEFAULT_SETTINGS, Uri.parse("package:$packageName")))
-		}
-	}
-
-
-	override fun onClick(dialog: DialogInterface, which: Int) {
-		preferences.instance = instances[which].url
-		instanceText.text = preferences.instance
-		dialog.dismiss()
-	}
-
-
-	override fun onInstancesLoaded(instances: List<Instance>?) {
+	/**
+	 * show the healthy instances followed by the custom instance option
+	 *
+	 * @param instances loaded instances or null if the list could not be loaded
+	 */
+	private fun showInstances(instances: List<Instance>?) {
 		instanceLoader = null
 		instanceButton.isEnabled = true
 		if (instances == null) {
 			Toast.makeText(applicationContext, R.string.error_load_instances, Toast.LENGTH_SHORT).show()
 		} else if (instances.isEmpty()) {
 			Toast.makeText(applicationContext, R.string.error_no_instance, Toast.LENGTH_SHORT).show()
+		}
+		val list = instances.orEmpty()
+		val items = list.map { getInstanceDescription(it) } + getString(R.string.custom_instance)
+		// mark the instance currently used
+		val selection = list.indexOfFirst { it.url == preferences.instance }
+		instanceDialog = AlertDialog.Builder(this)
+			.setTitle(R.string.choose_instance)
+			.setSingleChoiceItems(items.toTypedArray(), selection) { dialog, which ->
+				dialog.dismiss()
+				if (which < list.size) {
+					setInstance(list[which].url)
+				} else {
+					showCustomInstanceDialog()
+				}
+			}
+			.show()
+	}
+
+	/**
+	 * ask for the url of a custom instance
+	 */
+	private fun showCustomInstanceDialog() {
+		val input = EditText(this)
+		input.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_URI
+		input.setText(preferences.instance)
+		instanceDialog = AlertDialog.Builder(this)
+			.setTitle(R.string.custom_instance)
+			.setView(input)
+			.setPositiveButton(android.R.string.ok) { _, _ -> setCustomInstance(input.text.toString()) }
+			.setNegativeButton(android.R.string.cancel, null)
+			.show()
+	}
+
+	/**
+	 * check and store a custom instance url, https is used if the url has no scheme
+	 *
+	 * @param text url entered by the user
+	 */
+	private fun setCustomInstance(text: String) {
+		var url = text.trim().trimEnd('/')
+		if (!url.contains("://")) {
+			url = "https://$url"
+		}
+		if (Patterns.WEB_URL.matcher(url).matches()) {
+			setInstance(url)
 		} else {
-			this.instances = instances
-			val items = instances.map { getInstanceDescription(it) }.toTypedArray()
-			// mark the instance currently used
-			val selection = instances.indexOfFirst { it.url == preferences.instance }
-			instanceDialog = AlertDialog.Builder(this).setTitle(R.string.title_instances).setSingleChoiceItems(items, selection, this).show()
+			Toast.makeText(applicationContext, R.string.error_wrong_url, Toast.LENGTH_SHORT).show()
 		}
 	}
 
+	/**
+	 * store and show the instance used for redirects
+	 *
+	 * @param url instance url
+	 */
+	private fun setInstance(url: String) {
+		preferences.instance = url
+		instanceText.text = url
+	}
 
 	/**
 	 * create a dialog item showing the instance domain followed by its location and health information
