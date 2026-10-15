@@ -1,1 +1,0 @@
-<p><i>Unbird</i> leitet X/Twitter Links zu einer beliebigen Nitter-Instanz um. Erreichbare öffentliche Instanzen können von status.d420.de ausgewählt werden. Der Internetzugriff wird nur zum Laden dieser Liste verwendet.</p>

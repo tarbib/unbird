@@ -1,1 +1,0 @@
-<p><i>Unbird</i> simply forwards X/Twitter links to a Nitter instance. Healthy public instances can be chosen from status.d420.de. Internet access is only used to load this list.</p>
