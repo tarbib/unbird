@@ -49,6 +49,12 @@
 	</LinearLayout>
 
 	<Button
+		android:id="@+id/choose_instance"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="@string/choose_instance" />
+
+	<Button
 		android:id="@+id/open_app_settings"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"

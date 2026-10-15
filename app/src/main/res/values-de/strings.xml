@@ -8,4 +8,9 @@
 	<string name="info_instance_set">Instanz-URL gesichert</string>
 	<string name="custom_instance">Benutzerdefinierte Instanz</string>
 	<string name="open_app_settings">Berechtigung erteilen um Links zu öffnen</string>
+	<string name="choose_instance">Instanz von status.d420.de auswählen</string>
+	<string name="title_instances">Erreichbare Nitter-Instanzen</string>
+	<string name="error_load_instances">Instanzliste konnte nicht geladen werden, bitte später erneut versuchen!</string>
+	<string name="error_no_instance">Keine erreichbare Instanz gefunden!</string>
+	<string name="instance_uptime">%1$d %% Verfügbarkeit</string>
 </resources>

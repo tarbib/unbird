@@ -7,4 +7,4 @@
 ## Description
 
 This Android app simply redirects X/Twitter links to a more privacy friendly <b>Nitter</b> instance.
-Lightweight, no additional permissions required.
+Lightweight: the only permission is internet access, used just to load the list of healthy instances from [status.d420.de](https://status.d420.de/) when you choose one from it.

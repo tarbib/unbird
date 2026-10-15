@@ -12,4 +12,12 @@
 	<!-- instance for nitter.net -->
 	<string name="custom_instance">custom instance</string>
 	<string name="open_app_settings">set permission to open links</string>
+	<string name="choose_instance">choose instance from status.d420.de</string>
+	<string name="title_instances">Healthy Nitter instances</string>
+	<string name="error_load_instances">could not load instance list, try again later!</string>
+	<string name="error_no_instance">no healthy instance found!</string>
+	<!-- average response time of an instance -->
+	<string name="instance_ping" translatable="false">%1$d ms</string>
+	<!-- all time percentage of an instance being healthy -->
+	<string name="instance_uptime">%1$d%% uptime</string>
 </resources>
