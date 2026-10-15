@@ -1,8 +1,7 @@
-app/build/
-app/release/
-.gradle/
-.idea/
 build/
+.gradle/
+.kotlin/
+.idea/
 local.properties
 # signing keys must never be committed
 *.jks

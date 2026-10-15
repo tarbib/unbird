@@ -1,3 +1,15 @@
-rootProject.name = "unbird"
+pluginManagement {
+	repositories {
+		google()
+		mavenCentral()
+	}
+}
 
-include(":app")
+dependencyResolutionManagement {
+	repositories {
+		google()
+		mavenCentral()
+	}
+}
+
+rootProject.name = "unbird"

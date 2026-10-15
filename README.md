@@ -8,16 +8,18 @@ Lightweight: the only permission is internet access, used just to load that list
 
 ## Download
 
-The latest APK is attached to the newest [release](https://github.com/tarbib/unbird/releases/latest).
+Every push to `main` builds the APK and publishes it as a release: [latest APK](https://github.com/tarbib/unbird/releases/latest/download/unbird.apk).
 
 ## Build
 
+With Gradle 9.3.1, JDK 21 and the Android SDK:
+
 ```sh
-./gradlew assembleRelease
+gradle assembleRelease
 ```
 
-Release builds are signed when the `SIGNING_KEYSTORE` (path to the keystore, key alias `unbird`) and `SIGNING_PASSWORD` environment variables are set.
-GitHub Actions builds every push and publishes a release for every `v*` tag, using the `SIGNING_KEYSTORE_BASE64` and `SIGNING_PASSWORD` repository secrets.
+The APK is signed with the release key when `SIGNING_KEYSTORE` (key alias `unbird`) and `SIGNING_PASSWORD` are set, otherwise with the debug key.
+GitHub Actions reads them from the optional `SIGNING_KEYSTORE_BASE64` and `SIGNING_PASSWORD` repository secrets.
 
 ## Credits
 
