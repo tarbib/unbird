@@ -10,7 +10,7 @@ import io.github.tarbib.unbird.R
 import io.github.tarbib.unbird.store.Preferences
 
 /**
- * Activity used to redirect to Nitter instance
+ * Activity used to redirect X/Twitter links to the selected Nitter instance
  *
  * @author nuclearfog
  */
@@ -19,29 +19,17 @@ class RedirectActivity : Activity() {
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		val settings = Preferences.get(applicationContext)
-		// fetch url to redirect
-		val data = intent.data ?: return
-		val path = data.path.orEmpty()
-		val redirectUrl = if (settings.mode == Preferences.MODE_CUSTOM) {
-			val url = Uri.parse(settings.domain + path)
-			if (url.scheme == null) Uri.parse("https://" + settings.domain + path) else url
-		} else {
-			Uri.parse("https://nitter.net$path")
+		// keep the path of the link and replace the X/Twitter host with the Nitter instance
+		val path = intent.data?.path
+		if (path != null) {
+			val redirect = Intent(Intent.ACTION_VIEW, Uri.parse(Preferences(this).instance + path))
+			redirect.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+			try {
+				startActivity(redirect)
+			} catch (exception: ActivityNotFoundException) {
+				Toast.makeText(applicationContext, R.string.error_open_link, Toast.LENGTH_SHORT).show()
+			}
 		}
-		val viewIntent = Intent(Intent.ACTION_VIEW)
-		viewIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-		viewIntent.data = redirectUrl
-		try {
-			applicationContext.startActivity(viewIntent)
-		} catch (exception: ActivityNotFoundException) {
-			Toast.makeText(applicationContext, R.string.error_open_link, Toast.LENGTH_SHORT).show()
-		}
-	}
-
-
-	override fun onStop() {
-		super.onStop()
 		finish()
 	}
 }

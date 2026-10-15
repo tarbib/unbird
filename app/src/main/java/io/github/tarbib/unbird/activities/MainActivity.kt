@@ -12,64 +12,45 @@ import android.provider.Settings
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.RelativeSizeSpan
-import android.util.Patterns
 import android.view.View
-import android.widget.AdapterView
 import android.widget.Button
-import android.widget.EditText
-import android.widget.Spinner
+import android.widget.TextView
 import android.widget.Toast
 import io.github.tarbib.unbird.R
-import io.github.tarbib.unbird.adapter.NetworkAdapter
 import io.github.tarbib.unbird.backend.InstanceLoader
 import io.github.tarbib.unbird.model.Instance
 import io.github.tarbib.unbird.store.Preferences
 
 /**
- * Main activity of this application, used to show network selector and handle link conversion
+ * Main activity of this application, used to show and choose the Nitter instance
  *
  * @author nuclearfog
  */
-class MainActivity : Activity(), View.OnClickListener, AdapterView.OnItemSelectedListener, DialogInterface.OnClickListener, InstanceLoader.InstanceCallback {
+class MainActivity : Activity(), View.OnClickListener, DialogInterface.OnClickListener, InstanceLoader.InstanceCallback {
 
-	private lateinit var settings: Preferences
-	private var instanceLoader: InstanceLoader? = null
-	private var instances: List<Instance> = emptyList()
-
-	private lateinit var selector: Spinner
-	private lateinit var urlInput: EditText
-	private lateinit var urlContainer: View
+	private lateinit var preferences: Preferences
+	private lateinit var instanceText: TextView
 	private lateinit var instanceButton: Button
+	private var instanceLoader: InstanceLoader? = null
 	private var instanceDialog: AlertDialog? = null
+	private var instances: List<Instance> = emptyList()
 
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.layout_main)
-		selector = findViewById(R.id.network_selector)
-		val confirmButton = findViewById<View>(R.id.network_confirm)
-		val settingsButton = findViewById<Button>(R.id.open_app_settings)
+		instanceText = findViewById(R.id.current_instance)
 		instanceButton = findViewById(R.id.choose_instance)
-		urlContainer = findViewById(R.id.network_input_container)
-		urlInput = findViewById(R.id.network_input)
+		val settingsButton = findViewById<Button>(R.id.open_app_settings)
 
-		settings = Preferences.get(applicationContext)
-		selector.adapter = NetworkAdapter()
-		if (settings.mode == Preferences.MODE_DEFAULT) {
-			selector.setSelection(NetworkAdapter.INDEX_DEFAULT, false)
-			urlContainer.visibility = View.INVISIBLE
-		} else if (settings.mode == Preferences.MODE_CUSTOM) {
-			selector.setSelection(NetworkAdapter.INDEX_CUSTOM, false)
-			urlContainer.visibility = View.VISIBLE
-			urlInput.setText(settings.domain)
-		}
+		preferences = Preferences(this)
+		instanceText.text = preferences.instance
+		// since Android 12 opening X/Twitter links with this app must be allowed manually
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
 			settingsButton.visibility = View.VISIBLE
 		}
-		selector.onItemSelectedListener = this
-		settingsButton.setOnClickListener(this)
-		confirmButton.setOnClickListener(this)
 		instanceButton.setOnClickListener(this)
+		settingsButton.setOnClickListener(this)
 	}
 
 
@@ -82,62 +63,19 @@ class MainActivity : Activity(), View.OnClickListener, AdapterView.OnItemSelecte
 
 	@SuppressLint("InlinedApi")
 	override fun onClick(v: View) {
-		when (v.id) {
-			R.id.network_confirm -> {
-				val url = urlInput.text.toString()
-				if (Patterns.WEB_URL.matcher(url).matches()) {
-					urlInput.setText(url)
-					settings.domain = url
-					settings.mode = Preferences.MODE_CUSTOM
-					Toast.makeText(applicationContext, R.string.info_instance_set, Toast.LENGTH_SHORT).show()
-				} else {
-					urlInput.error = getString(R.string.error_wrong_url)
-				}
-			}
-
-			R.id.open_app_settings -> {
-				val intent = Intent(Settings.ACTION_APP_OPEN_BY_DEFAULT_SETTINGS, Uri.parse("package:$packageName"))
-				intent.addCategory(Intent.CATEGORY_DEFAULT)
-				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-				startActivity(intent)
-			}
-
-			R.id.choose_instance -> {
-				instanceButton.isEnabled = false
-				instanceLoader = InstanceLoader(this).also { it.start() }
-			}
+		if (v.id == R.id.choose_instance) {
+			instanceButton.isEnabled = false
+			instanceLoader = InstanceLoader(this).also { it.start() }
+		} else if (v.id == R.id.open_app_settings) {
+			startActivity(Intent(Settings.ACTION_APP_OPEN_BY_DEFAULT_SETTINGS, Uri.parse("package:$packageName")))
 		}
 	}
 
 
 	override fun onClick(dialog: DialogInterface, which: Int) {
-		val url = instances[which].url
-		settings.domain = url
-		settings.mode = Preferences.MODE_CUSTOM
-		selector.setSelection(NetworkAdapter.INDEX_CUSTOM)
-		urlContainer.visibility = View.VISIBLE
-		urlInput.setText(url)
-		urlInput.error = null
-		Toast.makeText(applicationContext, R.string.info_instance_set, Toast.LENGTH_SHORT).show()
+		preferences.instance = instances[which].url
+		instanceText.text = preferences.instance
 		dialog.dismiss()
-	}
-
-
-	override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-		if (parent.id == R.id.network_selector) {
-			if (position == NetworkAdapter.INDEX_DEFAULT) {
-				urlContainer.visibility = View.INVISIBLE
-				settings.mode = Preferences.MODE_DEFAULT
-				settings.domain = ""
-			} else if (position == NetworkAdapter.INDEX_CUSTOM) {
-				urlContainer.visibility = View.VISIBLE
-				urlInput.setText(settings.domain)
-			}
-		}
-	}
-
-
-	override fun onNothingSelected(parent: AdapterView<*>) {
 	}
 
 
@@ -151,8 +89,8 @@ class MainActivity : Activity(), View.OnClickListener, AdapterView.OnItemSelecte
 		} else {
 			this.instances = instances
 			val items = instances.map { getInstanceDescription(it) }.toTypedArray()
-			// mark the currently used instance
-			val selection = if (settings.mode == Preferences.MODE_CUSTOM) instances.indexOfFirst { it.url == settings.domain } else -1
+			// mark the instance currently used
+			val selection = instances.indexOfFirst { it.url == preferences.instance }
 			instanceDialog = AlertDialog.Builder(this).setTitle(R.string.title_instances).setSingleChoiceItems(items, selection, this).show()
 		}
 	}

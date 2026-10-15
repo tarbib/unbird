@@ -1,19 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_name" translatable="false">Unbird</string>
-	<string name="label_network_selector">Select Nitter instance</string>
-	<string name="error_open_link">could not open link!</string>
-	<string name="hint_url">Nitter url e.g. https://nitter.net</string>
-	<string name="error_wrong_url">wrong URL format!</string>
-	<string name="description_button">save instance url</string>
-	<string name="info_instance_set">instance url saved</string>
-	<!-- instance for nitter.net -->
-	<string name="select_nitter" translatable="false">nitter.net</string>
-	<!-- instance for nitter.net -->
-	<string name="custom_instance">custom instance</string>
-	<string name="open_app_settings">set permission to open links</string>
+	<string name="label_instance">Nitter instance</string>
 	<string name="choose_instance">choose instance from status.d420.de</string>
+	<string name="open_app_settings">set permission to open links</string>
 	<string name="title_instances">Healthy Nitter instances</string>
+	<string name="error_open_link">could not open link!</string>
 	<string name="error_load_instances">could not load instance list, try again later!</string>
 	<string name="error_no_instance">no healthy instance found!</string>
 	<!-- average response time of an instance -->
