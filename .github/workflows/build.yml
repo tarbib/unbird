@@ -17,6 +17,9 @@ jobs:
     permissions:
       # needed to publish the release
       contents: write
+    env:
+      SIGNING_KEYSTORE_BASE64: ${{ secrets.SIGNING_KEYSTORE_BASE64 }}
+      SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
 
     steps:
       - uses: actions/checkout@v7
@@ -34,9 +37,6 @@ jobs:
         run: yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-37.0" "build-tools;37.0.0" > /dev/null
 
       - name: Build APK
-        env:
-          SIGNING_KEYSTORE_BASE64: ${{ secrets.SIGNING_KEYSTORE_BASE64 }}
-          SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
         run: |
           # optional release key, without it the APK is signed with a temporary debug key
           if [ -n "$SIGNING_KEYSTORE_BASE64" ]; then
@@ -51,6 +51,13 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          # replace the release of the previous build
-          gh release delete latest --cleanup-tag --yes || true
-          gh release create latest unbird.apk --target "$GITHUB_SHA" --title "Unbird (latest build)" --notes "APK built from $GITHUB_SHA" --latest
+          # an update only installs over an APK signed with the same key
+          if [ -z "$SIGNING_KEYSTORE_BASE64" ]; then
+            echo "::error::Add the SIGNING_KEYSTORE_BASE64 and SIGNING_PASSWORD secrets to publish the APK"
+            exit 1
+          fi
+          # the release is named after the version of the APK, so Obtainium sees every build as an update
+          version=$("$ANDROID_HOME/build-tools/37.0.0/aapt2" dump badging unbird.apk | sed -n "s/.*versionName='\([^']*\)'.*/\1/p")
+          gh release create "$version" unbird.apk --target "$GITHUB_SHA" --title "Unbird $version" --notes "APK built from $GITHUB_SHA" --latest
+          # keep only this release
+          gh release list --json tagName --jq '.[].tagName' | grep -vxF "$version" | xargs -r -n1 gh release delete --cleanup-tag --yes

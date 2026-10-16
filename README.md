@@ -8,7 +8,8 @@ Lightweight: the only permission is internet access, used just to load that list
 
 ## Download
 
-Every push to `main` publishes the APK as the latest release: [download the APK](https://github.com/tarbib/unbird/releases/download/latest/unbird.apk). Requires Android 10 or newer.
+Every push to `main` publishes the APK as a new release that replaces the previous one: [download the APK](https://github.com/tarbib/unbird/releases/latest/download/unbird.apk). Requires Android 10 or newer.
+To get the updates, add `https://github.com/tarbib/unbird` to [Obtainium](https://github.com/ImranR98/Obtainium).
 
 ## Build
 
@@ -19,8 +20,8 @@ gradle assembleRelease
 ```
 
 The APK is signed with the release key when `SIGNING_KEYSTORE` (key alias `unbird`) and `SIGNING_PASSWORD` are set, otherwise with the debug key.
-GitHub Actions reads them from the optional `SIGNING_KEYSTORE_BASE64` and `SIGNING_PASSWORD` repository secrets.
-Without them every build gets its own debug key, so a new APK only installs after uninstalling the previous one.
+GitHub Actions reads them from the `SIGNING_KEYSTORE_BASE64` and `SIGNING_PASSWORD` repository secrets and only publishes APKs signed with the release key, since an update must be signed with the same key as the installed app.
+The version of a build of GitHub Actions is 1.0 followed by the run number.
 
 ## Credits
 

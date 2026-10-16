@@ -12,8 +12,10 @@ android {
 		applicationId = "io.github.tarbib.unbird"
 		minSdk = 29
 		targetSdk = 37
-		versionCode = 1
-		versionName = "1.0.0"
+		// numbered by the GitHub Actions run, so every published APK is an update of the previous one
+		val build = System.getenv("GITHUB_RUN_NUMBER")?.toInt() ?: 1
+		versionCode = build
+		versionName = "1.0.$build"
 	}
 
 	signingConfigs {
