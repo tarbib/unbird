@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<color name="icon_background">#1D1B1B</color>
+	<!-- launcher icon, in the colors of the logo of the main screen -->
+	<color name="icon_background">#EDEDF6</color>
+	<color name="icon_shape">#B9CBFF</color>
+	<color name="icon_letter">#4F378B</color>
 </resources>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- the N of the launcher icon on the same 108 unit canvas, also used as its monochrome layer -->
+<!-- the N logo on the 108 unit canvas of adaptive icons -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
 	android:width="108dp"
 	android:height="108dp"
