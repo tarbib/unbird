@@ -1,15 +1,21 @@
-name: Build APK
+name: Build
 
 on:
   push:
     branches: [main]
+  pull_request:
   workflow_dispatch:
+
+# a new push cancels the build of the previous one
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      # needed to publish releases
+      # needed to publish the release
       contents: write
 
     steps:
@@ -40,7 +46,11 @@ jobs:
           gradle assembleRelease
           cp build/outputs/apk/release/*.apk unbird.apk
 
-      - name: Publish release
+      - name: Publish the APK as the latest release
+        if: github.ref == 'refs/heads/main'
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release create "build-$GITHUB_RUN_NUMBER" unbird.apk --target "$GITHUB_SHA" --title "Unbird build $GITHUB_RUN_NUMBER" --notes "APK built from $GITHUB_SHA"
+        run: |
+          # replace the release of the previous build
+          gh release delete latest --cleanup-tag --yes || true
+          gh release create latest unbird.apk --target "$GITHUB_SHA" --title "Unbird (latest build)" --notes "APK built from $GITHUB_SHA" --latest
