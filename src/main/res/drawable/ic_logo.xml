@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- the N of the launcher icon on the same 108 unit canvas, also used as its monochrome layer -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+	android:width="108dp"
+	android:height="108dp"
+	android:viewportWidth="108"
+	android:viewportHeight="108">
+	<path
+		android:fillColor="@android:color/white"
+		android:pathData="M36,28.375H38A1.5,1.5 0 0,1 39.5,29.875V78.125A1.5,1.5 0 0,1 38,79.625H36A1.5,1.5 0 0,1 34.5,78.125V29.875A1.5,1.5 0 0,1 36,28.375ZM70,28.375H72A1.5,1.5 0 0,1 73.5,29.875V78.125A1.5,1.5 0 0,1 72,79.625H70A1.5,1.5 0 0,1 68.5,78.125V29.875A1.5,1.5 0 0,1 70,28.375Z" />
+	<path
+		android:pathData="M38.175,30.175L62.6,77.825M45.4,30.175L69.825,77.825"
+		android:strokeWidth="3.34"
+		android:strokeColor="@android:color/white"
+		android:strokeLineCap="round" />
+</vector>

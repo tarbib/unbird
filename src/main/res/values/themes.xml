@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<!-- Base application theme. -->
-	<style name="DefaultTheme" parent="@android:style/Theme.Holo">
-		<item name="android:background">@color/main_background</item>
-		<item name="android:windowActionBar">false</item>
-		<item name="android:windowNoTitle">true</item>
-		<item name="android:textColor">@color/color_font</item>
-		<item name="android:fitsSystemWindows">true</item>
+	<!-- Material 3 Expressive, with the wallpaper colors on Android 12+ -->
+	<style name="DefaultTheme" parent="Theme.Material3Expressive.DynamicColors.DayNight.NoActionBar">
+		<!-- background of segmented lists -->
+		<item name="android:windowBackground">?attr/colorSurfaceContainer</item>
+	</style>
+
+	<!-- clickable list item, lighter than the background also in dark mode -->
+	<style name="Widget.Unbird.ListItemCardView" parent="Widget.Material3.ListItemCardView.Segmented">
+		<item name="android:clickable">true</item>
+		<item name="android:focusable">true</item>
+		<item name="cardBackgroundColor">?attr/colorSurfaceBright</item>
+		<item name="swipeEnabled">false</item>
 	</style>
 </resources>

@@ -1,35 +1,194 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="vertical"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:id="@+id/main"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:gravity="center"
-	android:padding="@dimen/layout_padding">
+	android:clipToPadding="false"
+	android:fillViewport="true">
 
-	<TextView
+	<androidx.constraintlayout.widget.ConstraintLayout
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:text="@string/label_instance"
-		android:textSize="@dimen/text_size_label" />
+		android:layout_height="wrap_content">
 
-	<TextView
-		android:id="@+id/current_instance"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_marginBottom="@dimen/layout_padding"
-		android:textSize="@dimen/text_size_instance" />
+		<LinearLayout
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:gravity="center_horizontal"
+			android:orientation="vertical"
+			android:paddingHorizontal="16dp"
+			android:paddingVertical="32dp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintVertical_bias="0.4"
+			app:layout_constraintWidth_max="560dp">
 
-	<Button
-		android:id="@+id/choose_instance"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="@string/choose_instance" />
+			<ImageView
+				android:layout_width="112dp"
+				android:layout_height="112dp"
+				android:background="@drawable/bg_logo"
+				android:importantForAccessibility="no"
+				android:padding="4dp"
+				app:srcCompat="@drawable/ic_logo"
+				app:tint="?attr/colorOnPrimaryContainer" />
 
-	<Button
-		android:id="@+id/open_app_settings"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="@string/open_app_settings"
-		android:visibility="gone" />
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="24dp"
+				android:text="@string/app_name"
+				android:textAppearance="?attr/textAppearanceDisplaySmallEmphasized"
+				android:textColor="?attr/colorOnSurface" />
 
-</LinearLayout>
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp"
+				android:breakStrategy="balanced"
+				android:gravity="center"
+				android:text="@string/tagline"
+				android:textAppearance="?attr/textAppearanceBodyLarge"
+				android:textColor="?attr/colorOnSurfaceVariant" />
+
+			<com.google.android.material.listitem.ListItemLayout
+				android:id="@+id/instance_item"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="40dp">
+
+				<com.google.android.material.listitem.ListItemCardView
+					android:id="@+id/instance_card"
+					style="@style/Widget.Unbird.ListItemCardView"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content">
+
+					<LinearLayout
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:gravity="center_vertical"
+						android:minHeight="52dp"
+						android:orientation="horizontal">
+
+						<ImageView
+							style="@style/Widget.Material3.ImageView.ListItem.LeadingIcon"
+							android:layout_width="24dp"
+							android:layout_height="24dp"
+							android:importantForAccessibility="no"
+							app:srcCompat="@drawable/ic_instance" />
+
+						<LinearLayout
+							android:layout_width="0dp"
+							android:layout_height="wrap_content"
+							android:layout_marginStart="16dp"
+							android:layout_weight="1"
+							android:orientation="vertical">
+
+							<TextView
+								style="@style/Widget.Material3.TextView.ListItem.LabelText"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:text="@string/label_instance" />
+
+							<TextView
+								android:id="@+id/current_instance"
+								style="@style/Widget.Material3.TextView.ListItem.SupportingText"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content" />
+						</LinearLayout>
+
+						<ImageView
+							android:id="@+id/instance_arrow"
+							style="@style/Widget.Material3.ImageView.ListItem.TrailingIcon"
+							android:layout_width="24dp"
+							android:layout_height="24dp"
+							android:importantForAccessibility="no"
+							android:layout_marginStart="16dp"
+							app:srcCompat="@drawable/ic_chevron" />
+
+						<com.google.android.material.loadingindicator.LoadingIndicator
+							android:id="@+id/instance_progress"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_marginStart="16dp"
+							android:visibility="gone"
+							app:containerHeight="24dp"
+							app:containerWidth="24dp"
+							app:indicatorSize="24dp" />
+					</LinearLayout>
+				</com.google.android.material.listitem.ListItemCardView>
+			</com.google.android.material.listitem.ListItemLayout>
+
+			<!-- since Android 12 opening X/Twitter links with this app must be allowed manually -->
+			<com.google.android.material.listitem.ListItemLayout
+				android:id="@+id/links_item"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="2dp"
+				android:visibility="gone">
+
+				<com.google.android.material.listitem.ListItemCardView
+					android:id="@+id/links_card"
+					style="@style/Widget.Unbird.ListItemCardView"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content">
+
+					<LinearLayout
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:gravity="center_vertical"
+						android:minHeight="52dp"
+						android:orientation="horizontal">
+
+						<ImageView
+							style="@style/Widget.Material3.ImageView.ListItem.LeadingIcon"
+							android:layout_width="24dp"
+							android:layout_height="24dp"
+							android:importantForAccessibility="no"
+							app:srcCompat="@drawable/ic_link" />
+
+						<LinearLayout
+							android:layout_width="0dp"
+							android:layout_height="wrap_content"
+							android:layout_marginStart="16dp"
+							android:layout_weight="1"
+							android:orientation="vertical">
+
+							<TextView
+								style="@style/Widget.Material3.TextView.ListItem.LabelText"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:text="@string/label_links" />
+
+							<TextView
+								android:id="@+id/links_state"
+								style="@style/Widget.Material3.TextView.ListItem.SupportingText"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content" />
+						</LinearLayout>
+
+						<ImageView
+							android:id="@+id/links_allowed"
+							style="@style/Widget.Material3.ImageView.ListItem.TrailingIcon"
+							android:layout_width="24dp"
+							android:layout_height="24dp"
+							android:importantForAccessibility="no"
+							android:layout_marginStart="16dp"
+							android:visibility="gone"
+							app:srcCompat="@drawable/ic_check"
+							app:tint="?attr/colorPrimary" />
+
+						<com.google.android.material.button.MaterialButton
+							android:id="@+id/links_allow"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_marginStart="16dp"
+							android:text="@string/allow"
+							android:visibility="gone" />
+					</LinearLayout>
+				</com.google.android.material.listitem.ListItemCardView>
+			</com.google.android.material.listitem.ListItemLayout>
+		</LinearLayout>
+	</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

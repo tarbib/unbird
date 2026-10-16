@@ -8,7 +8,7 @@ Lightweight: the only permission is internet access, used just to load that list
 
 ## Download
 
-Every push to `main` builds the APK and publishes it as a release: [latest APK](https://github.com/tarbib/unbird/releases/latest/download/unbird.apk).
+Every push to `main` builds the APK and publishes it as a release: [latest APK](https://github.com/tarbib/unbird/releases/latest/download/unbird.apk). Requires Android 10 or newer.
 
 ## Build
 
@@ -24,7 +24,7 @@ GitHub Actions reads them from the optional `SIGNING_KEYSTORE_BASE64` and `SIGNI
 ## Credits
 
 Unbird is a modified version of [Nitterify](https://codeberg.org/nuclearfog/Nittterify) by nuclearfog.
-Changes since October 2026: instance chooser based on status.d420.de with a custom instance option, rewrite in Kotlin, new name and application ID, GitHub Actions builds.
+Changes since October 2026: instance chooser based on status.d420.de with a custom instance option, Material 3 design, rewrite in Kotlin, new name and application ID, GitHub Actions builds.
 
 ## License
 

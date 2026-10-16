@@ -10,7 +10,7 @@ android {
 
 	defaultConfig {
 		applicationId = "io.github.tarbib.unbird"
-		minSdk = 11
+		minSdk = 29
 		targetSdk = 37
 		versionCode = 1
 		versionName = "1.0.0"
@@ -36,4 +36,9 @@ android {
 			proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"))
 		}
 	}
+}
+
+dependencies {
+	implementation("com.google.android.material:material:1.14.0")
+	implementation("androidx.constraintlayout:constraintlayout:2.2.2")
 }
