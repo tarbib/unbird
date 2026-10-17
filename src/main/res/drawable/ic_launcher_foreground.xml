@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- logo of the main screen, the cookie shape fills the 66dp safe zone of the adaptive icon -->
+<!-- logo of the main screen in its light theme colors, the cookie shape fills the 66dp safe zone of the adaptive icon -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
 	android:width="108dp"
 	android:height="108dp"
@@ -11,7 +11,7 @@
 		android:translateX="21.0"
 		android:translateY="21.0">
 		<path
-			android:fillColor="@color/icon_shape"
+			android:fillColor="@color/logo_shape"
 			android:pathData="M42.634,2.843A10.962,10.962 0 0,1 57.366,2.843A24.35,24.35 0 0,0 74.669,9.141A10.962,10.962 0 0,1 85.954,18.611A24.35,24.35 0 0,0 95.161,34.558A10.962,10.962 0 0,1 97.719,49.065A24.35,24.35 0 0,0 94.522,67.199A10.962,10.962 0 0,1 87.156,79.957A24.35,24.35 0 0,0 73.05,91.794A10.962,10.962 0 0,1 59.207,96.832A24.35,24.35 0 0,0 40.793,96.832A10.962,10.962 0 0,1 26.95,91.794A24.35,24.35 0 0,0 12.844,79.957A10.962,10.962 0 0,1 5.478,67.199A24.35,24.35 0 0,0 2.281,49.065A10.962,10.962 0 0,1 4.839,34.558A24.35,24.35 0 0,0 14.046,18.611A10.962,10.962 0 0,1 25.331,9.141A24.35,24.35 0 0,0 42.634,2.843Z" />
 	</group>
 	<group
@@ -20,12 +20,12 @@
 		android:scaleX="0.5674"
 		android:scaleY="0.5674">
 		<path
-			android:fillColor="@color/icon_letter"
+			android:fillColor="@color/logo_letter"
 			android:pathData="M36,28.375H38A1.5,1.5 0 0,1 39.5,29.875V78.125A1.5,1.5 0 0,1 38,79.625H36A1.5,1.5 0 0,1 34.5,78.125V29.875A1.5,1.5 0 0,1 36,28.375ZM70,28.375H72A1.5,1.5 0 0,1 73.5,29.875V78.125A1.5,1.5 0 0,1 72,79.625H70A1.5,1.5 0 0,1 68.5,78.125V29.875A1.5,1.5 0 0,1 70,28.375Z" />
 		<path
 			android:pathData="M38.175,30.175L62.6,77.825M45.4,30.175L69.825,77.825"
 			android:strokeWidth="3.34"
-			android:strokeColor="@color/icon_letter"
+			android:strokeColor="@color/logo_letter"
 			android:strokeLineCap="round" />
 	</group>
 </vector>

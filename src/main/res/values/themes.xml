@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- Material 3 Expressive, with the wallpaper colors on Android 12+ -->
-	<style name="DefaultTheme" parent="Theme.Material3Expressive.DynamicColors.DayNight.NoActionBar">
+	<style name="Base.DefaultTheme" parent="Theme.Material3Expressive.DynamicColors.DayNight.NoActionBar">
 		<!-- background of segmented lists -->
 		<item name="android:windowBackground">?attr/colorSurfaceContainer</item>
 	</style>
+
+	<style name="DefaultTheme" parent="Base.DefaultTheme" />
 
 	<!-- clickable list item, lighter than the background also in dark mode -->
 	<style name="Widget.Unbird.ListItemCardView" parent="Widget.Material3.ListItemCardView.Segmented">

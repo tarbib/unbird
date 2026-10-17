@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- the light Material 3 Expressive theme keeps a fixed purple for colorOnPrimaryContainer, use the wallpaper colors -->
+	<style name="DefaultTheme" parent="Base.DefaultTheme">
+		<item name="colorOnPrimaryContainer">@color/logo_letter</item>
+	</style>
+</resources>

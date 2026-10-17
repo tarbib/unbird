@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- wallpaper colors, the same ones the Material theme uses for colorSurfaceContainer and colorPrimaryContainer -->
+	<color name="logo_background">@color/m3_sys_color_dynamic_light_surface_container</color>
+	<color name="logo_shape">@color/m3_sys_color_dynamic_light_primary_container</color>
+	<!-- tone 30 of the primary palette, colorOnPrimaryContainer of Material 3 Expressive -->
+	<color name="logo_letter">@android:color/system_accent1_700</color>
+</resources>
